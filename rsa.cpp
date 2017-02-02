@@ -43,7 +43,9 @@ int main(void)
     printf("Enter the second prime number: ");
     cin >> q;
 
+    // n is modulus.
     ll n = p * q;
+    // euler's totient
     ll m = (p-1)*(q-1);
 
     // Setting e = 2 as p and q are already prime.
@@ -54,11 +56,19 @@ int main(void)
 
     cout << "Encryption Pair is: (" << n << ", " << e << ")" << endl;
 
-    // Take the file containing the plain text.
+    // Open the file containing the plain text.
     FILE* fin = fopen("plain.txt", "r");
+
+    // Open the file that will contain the cipher text.
     FILE* fout = fopen("cipher.txt", "w");
+
+    // Variable to hold one character from plain text at a time.
     char c;
+    // Variable storing the ascii value of character stored in c.
     int M;
+
+    // Reading the plain text file untill EOF occurs.
+    // Calculating the value of c = M ^ e(mod n).
     while(fscanf(fin, "%c", &c) != EOF)
     {
         M = c;
@@ -83,8 +93,11 @@ int main(void)
     fin = fopen("cipher.txt", "r");
     fout = fopen("decrypt.txt", "w");
 
+    // Stores the number from cipher text in the form of string.
     char s[100];
 
+    // Reading the cipher text file untill the EOF occurs.
+    // Calculating the value of m = c ^ d(mod n).
     while(fscanf(fin, "%s", s) != EOF)
     {
         int x = atoi(s);
@@ -99,6 +112,10 @@ int main(void)
         char c = prod;
         fprintf(fout, "%c", c);
     }
+
+    // Closing the opened files.
+    fclose(fin);
+    fclose(fout);
 }
 
 ll extendedEA(ll e, ll m)
